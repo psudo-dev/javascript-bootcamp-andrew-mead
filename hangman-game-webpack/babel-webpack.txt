@@ -1,0 +1,111 @@
+BABEL
+
+// install Babel
+npm install -g @babel/core @babel/cli
+// setup the folder
+npm install @babel/core @babel/preset-env
+// setup the output
+babel src/index.js --out-file public/scripts/bundle.js --presets @babel/env
+
+
+// inside package.json in scripts:
+"build": "babel src/index.js --out-file public/scripts/bundle.js --presets @babel/env --watch"
+
+npm run build
+
+https://www.npmjs.com/package/@babel/cli
+https://www.npmjs.com/package/@babel/preset-env
+
+WEBPACK
+
+// install webpack on your project
+npm install webpack webpack-cli
+
+// inside package.json in scripts:
+"webpack": "webpack"
+
+// on root create webpack.config.js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "./public/scripts"),
+    filename: "bundle.js"
+  },
+};
+
+npm run webpack
+
+// Run everything through Webpack
+
+// on package.json change scripts to
+"build": "webpack --watch"
+
+// on webpack.config.js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "./public/scripts"),
+    filename: "bundle.js",
+  },
+  module: {
+    rules: [{
+      test: /\.js$/, // to see if it's JavaScript files
+      exclude: /node_modules/, // not our code, so it doesn't need to be translated by Babel
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/env"],
+        },
+      },
+    }, ],
+  },
+};
+
+// Install webpack-dev-server
+npm install webpack-dev-server
+
+// Change package.json scripts
+ "scripts": {
+    "dev-server": "webpack-dev-server --mode development",
+    "build": "webpack --mode production" 
+  },
+
+// webpack.config.js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "./public/scripts"),
+    // filename: "bundle.js",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/, // to see if it's JavaScript files
+        exclude: /node_modules/, // not our code, so it doesn't need to be translated by Babel
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+          },
+        },
+      },
+    ],
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, "public"),
+    publicPath: "/scripts/",
+  },
+  devtool: "source-map",
+};
+
+// development mode
+npm run dev-server
+
+// production mode
+npm run build

@@ -1,4 +1,6 @@
-import uuidv4 from 'uuid/v4'
+import {
+    v4 as uuidv4
+} from "uuid";
 
 let todos = []
 
@@ -50,4 +52,10 @@ const toggleTodo = (id) => {
 
 loadTodos()
 
-export { loadTodos, getTodos, createTodo, removeTodo, toggleTodo }
+export {
+    loadTodos,
+    getTodos,
+    createTodo,
+    removeTodo,
+    toggleTodo
+}
