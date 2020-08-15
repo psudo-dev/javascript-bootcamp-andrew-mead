@@ -1,4 +1,6 @@
-import uuidv4 from 'uuid/v4'
+import {
+    v4 as uuidv4
+} from "uuid";
 import moment from 'moment'
 
 let notes = []
@@ -11,7 +13,7 @@ const loadNotes = () => {
         return notesJSON ? JSON.parse(notesJSON) : []
     } catch (e) {
         return []
-    } 
+    }
 }
 
 // Save the notes to localStorage
@@ -108,4 +110,10 @@ const updateNote = (id, updates) => {
 
 notes = loadNotes()
 
-export { getNotes, createNote, removeNote, sortNotes, updateNote }
+export {
+    getNotes,
+    createNote,
+    removeNote,
+    sortNotes,
+    updateNote
+}
